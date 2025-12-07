@@ -1,5 +1,5 @@
 {
-    // Two Drones Simple Following Sample
+    "Description": Two Drones Simple Following Sample,
     "SettingsVersion": 2.0,
     "SimMode": "Multirotor",
     "ViewMode": "SpringArmChase",
@@ -90,4 +90,5 @@
             }
         }
     }
+
 }

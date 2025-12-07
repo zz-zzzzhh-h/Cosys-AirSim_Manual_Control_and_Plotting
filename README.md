@@ -1,75 +1,70 @@
-# Cosys-AirSim Manual Control and Trajectory Plotting
+# Cosys-AirSim Leader Drone Plotting & Control (V5)
 
-本仓库包含两个用于 Cosys-AirSim 无人机（Leader）轨迹可视化的脚本，支持实时绘制、渐变色路径、方向指示与结果导出，便于教学与研究参考。
+本项目包含三个独立脚本，分别用于：
+- `settings.json`：用于替换 AirSim 中的默认设置
+- `code_v5_for_leader_mission_control.py`：控制 Leader 无人机按任务（示例为矩形）飞行。
+- `code_v5_for_plot_3D.py`：实时记录并绘制 Leader 的 3D 轨迹（渐变色、坐标轴自适应），保存时间序列与投影图，以及 GIF（可加速）。
 
-## 文件说明
+## 功能概览
+- 实时 3D 轨迹（渐变色按时间），Z 轴按 ENU（向上为正）显示。
+- 自动保存：
+  - x/y/z 与姿态角（roll/pitch/yaw，度）关于时间的 PNG
+  - xy、yz、xz 平面投影 PNG（等比例坐标）
+  - 3D 轨迹 GIF（默认 3× 速度）
+- 结果保存在脚本同目录的 `output/output_XX` 新建文件夹中（自动递增）。
+- 手动控制脚本支持加减速与偏航速率控制，示例任务脚本演示按方形航线飞行。
 
-- `code_v5_for_leader_trajectory_plot.py`
-  - 实时绘制 Leader 在 XY 平面的轨迹
-  - 使用渐变色显示时间推进，支持右侧偏移的方向箭头
-  - 可录制 GIF（基于 imageio）
+## 环境要求
+- 操作系统：Windows
+- Python 3.11
+- 依赖：
+  - `cosysairsim`（Cosys-AirSim Python API）
+  - `matplotlib`
+  - `numpy`
+  - `imageio`（可选，用于生成 GIF）
 
-- `code_v5_for_plot_3D.py`
-  - 实时绘制 Leader 的 3D 轨迹（X-Y-Z），渐变色对应时间
-  - Z 轴绘图采用 ENU（向上为正，通过对 NED 的 z 取负实现）
-  - 自动缩放坐标轴，2D 投影图（XY、YZ、XZ）保持等比例显示
-  - 导出 x/y/z 以及姿态角（roll/pitch/yaw）的随时间曲线 PNG
-  - 导出 3D 轨迹 PNG 与 GIF，GIF 默认 3× 速度
-  - 所有输出按运行序号保存在 `output/output_XX` 目录中
-
-## 依赖环境
-
-- Python 3.8+
-- Cosys-AirSim Python API（`cosysairsim`）
-- Matplotlib
-- NumPy
-- 可选：`imageio`（用于生成 GIF）
-
-安装依赖示例：
-
-```bash
-pip install matplotlib numpy imageio
+使用 pip 安装依赖：
+```
+pip install numpy matplotlib imageio
 ```
 
-> 注：`cosysairsim` 请根据 Cosys-AirSim 的官方文档/发行包进行安装与配置。
+## 运行方式
+建议在两个独立终端中分别运行控制与绘图。
 
-## 使用方法
+0）替换 `settings.json`
+使用文件中的 `settings.json` 替换掉 `C:\Users\Administrator\Documents\AirSim` 中的同名文件 
 
-1. 确保 Cosys-AirSim 模拟器已启动且 Leader 处于可连接状态。
-2. 运行脚本：
-   - 2D XY 轨迹与箭头：
-     ```bash
-     python code_v5_for_leader_trajectory_plot.py
-     ```
-   - 3D 轨迹与导出：
-     ```bash
-     python code_v5_for_plot_3D.py
-     ```
-3. 运行时按 Ctrl+C 可停止实时绘制；脚本会在结束时自动保存图片/GIF 到 `output/output_XX`。
+1) 启动任务控制（示例矩形航线）
+```
+python code_v5_for_leader_mission_control.py
+```
+- 键位：W/S 前进/后退，A/D 左/右，U/I 下/上（NED 中 z 向下为正），J/L 左/右偏航，K 归零偏航速率，P 降落，ESC 退出。
 
-## 参数与自定义
+2) 启动 3D 轨迹绘图与记录
+```
+python code_v5_for_plot_3D.py
+```
+- 实时窗口显示 3D 轨迹与颜色条（时间），结束后自动在 `output/output_XX` 目录生成所有 PNG 与 GIF 文件。
+- 可在脚本顶部调整：
+  - `DT`：采样与绘图周期
+  - `GIF_SPEED_MULTIPLIER`：GIF 加速倍率（默认 3）
+  - `RUNTIME_LIMIT_SEC`：运行时长限制（None 为手动 Ctrl+C 停止）
 
-- `DT`：采样与刷新周期（默认 0.05s，20Hz）
-- `ARROW_INTERVAL_SEC`：XY 轨迹箭头间隔时间（1.0s）
-- `ARROW_SCALE` / `ARROW_OFFSET`：箭头大小与右侧偏移量
-- `GIF_SPEED_MULTIPLIER`：3D GIF 的速度倍率（默认 3）
-- 颜色映射：默认 `cm.plasma`，可改为 `cm.viridis` 等
+## 目录结构（输出示例）
+```
+output/
+  output_01/
+    trajectory_3d.png
+    trajectory_3d.gif
+    x_time.png
+    y_time.png
+    z_time.png
+    roll_time.png
+    pitch_time.png
+    yaw_time.png
+    xy.png
+    yz.png
+    xz.png
+```
 
-## 输出内容（3D脚本）
-
-- `output/output_XX/trajectory_3d.png`：3D 轨迹图（Z 为 ENU）
-- `output/output_XX/trajectory_3d.gif`：3D 动态 GIF（3× 速度）
-- `output/output_XX/x_time.png`、`y_time.png`、`z_time.png`：位置随时间
-- `output/output_XX/roll_time.png`、`pitch_time.png`、`yaw_time.png`：姿态角随时间（已解包裹，避免 ±180° 跳变）
-- `output/output_XX/xy.png`、`yz.png`、`xz.png`：2D 投影图，比例相同
-
-## 注意事项
-
-- 坐标系：AirSim 使用 NED（Z 向下为正）。本项目绘图将 Z 转换为 ENU（向上为正）以更直观。
-- 同时运行控制与绘图脚本时，请确保连接同一车辆名（`Leader`）。
-- 姿态角绘图做了 `unwrap` 处理，避免角度跨越 ±180° 时的突变。
-- GIF 生成依赖 `imageio`，未安装时仅保存 PNG 图片。
-
-## 许可
-
-- 本项目代码供学习与研究参考，版权归原作者所有。请在引用时保留作者与说明。
+## 如果能帮到你，请不吝 Star一下！之后会持续更新基于 Cosys-AirSim 的相关代码，大家的支持是我最大的动力！THANKS :) ！！！

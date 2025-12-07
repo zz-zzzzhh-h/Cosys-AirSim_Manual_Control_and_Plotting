@@ -1,0 +1,93 @@
+{
+    // Two Drones Simple Following Sample
+    "SettingsVersion": 2.0,
+    "SimMode": "Multirotor",
+    "ViewMode": "SpringArmChase",
+    "CameraDefaults": {
+        "CaptureSettings": [
+            {
+                "ImageType": 0,
+                "Width": 1080,
+                "Height": 720,
+                "FOV_Degrees": 120
+            }
+        ]
+    },
+    "SubWindows": [
+        {
+            "WindowID": 0,
+            "CameraName": "rear",
+            "ImageType": 0,
+            "VehicleName": "Leader",
+            "Visible": true
+        },
+        {
+            "WindowID": 1,
+            "CameraName": "rear",
+            "ImageType": 0,
+            "VehicleName": "Follower1",
+            "Visible": true
+        },
+        {
+            "WindowID": 2,
+            "CameraName": "rear",
+            "ImageType": 0,
+            "VehicleName": "Follower2",
+            "Visible": true
+        }
+    ],
+    "Vehicles": {
+        "Leader": {
+            "VehicleType": "SimpleFlight",
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0,
+            "Yaw": 0.0,
+            "Cameras": {
+                "rear": {
+                    "X": -3.0,
+                    "Y": 0.0,
+                    "Z": -2.0,
+                    "Pitch": 0.0,
+                    "Roll": 0.0,
+                    "Yaw": 0.0
+                }
+            }
+        },
+        "Follower1": {
+            "VehicleType": "SimpleFlight",
+            "X": -2.0,
+            "Y": 0.0,
+            "Z": 0.0,
+            "Yaw": 0.0,
+            "Cameras": {
+                "rear": {
+                    "X": -3.0,
+                    "Y": 0.0,
+                    "Z": -2.0,
+                    "Pitch": 0.0,
+                    "Roll": 0.0,
+                    "Yaw": 0.0
+                }
+            }
+        },
+        "Follower2": {
+            "VehicleType": "SimpleFlight",
+            "IsFpvVehicle": true,
+            "X": -4.0,
+            "Y": 0.0,
+            "Z": 0.0,
+            "Yaw": 0.0,
+            "Cameras": {
+                "rear": {
+                    "X": -3.0,
+                    "Y": 0.0,
+                    "Z": -2.0,
+                    "Pitch": 0.0,
+                    "Roll": 0.0,
+                    "Yaw": 0.0
+                }
+            }
+        }
+    }
+}

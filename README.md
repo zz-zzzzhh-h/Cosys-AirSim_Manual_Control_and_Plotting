@@ -1,4 +1,4 @@
-# Cosys-AirSim Leader Drone Plotting & Control (V5)
+# Cosys-AirSim Drone Plotting & Control 
 
 本项目包含三个独立脚本，分别用于：
 - `settings.json`：用于替换 AirSim 中的默认设置

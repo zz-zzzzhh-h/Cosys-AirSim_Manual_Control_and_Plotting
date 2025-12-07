@@ -31,7 +31,7 @@ pip install numpy matplotlib imageio
 ## 运行方式
 建议在两个独立终端中分别运行控制与绘图。
 
-0）替换 `settings.json`
+0) 替换 `settings.json`
 使用文件中的 `settings.json` 替换掉 `C:\Users\Administrator\Documents\AirSim` 中的同名文件 
 
 1) 启动任务控制（示例矩形航线）

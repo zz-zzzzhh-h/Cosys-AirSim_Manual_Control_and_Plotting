@@ -67,4 +67,4 @@ output/
     xz.png
 ```
 
-## 如果能帮到你，请不吝 Star一下！之后会持续更新基于 Cosys-AirSim 的相关代码，大家的支持是我最大的动力！THANKS :) ！！！
+## 如果能帮到你，请不吝 Star 一下！之后会持续更新基于 Cosys-AirSim 的相关代码，大家的支持是我最大的动力！THANKS :) ！！！

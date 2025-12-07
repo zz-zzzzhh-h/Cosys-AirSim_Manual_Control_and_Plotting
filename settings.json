@@ -1,5 +1,5 @@
 {
-    "Description": "Manual control sample"
+    "Description": "Manual control sample",
     "SettingsVersion": 2.0,
     "SimMode": "Multirotor",
     "ViewMode": "SpringArmChase",
@@ -92,4 +92,5 @@
     }
 
 }
+
 
